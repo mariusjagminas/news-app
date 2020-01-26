@@ -1,0 +1,9 @@
+<header>
+  <ul>
+    <li *ngFor="let category of categories" (click)="changeCategory(category)">
+      {{ category }}
+    </li>
+  </ul>
+  <input type="text" [(ngModel)]="searchKeyword" />
+  <button (click)="onClick()">Search</button>
+</header>
