@@ -12,8 +12,8 @@ export class NewsService {
 
   baseUrl: string = 'https://api.currentsapi.services/v1';
   path: string = "/search";
-  // url: string = this.baseUrl + this.path;
-  url: string = '/assets/fake-data.json'
+  url: string = this.baseUrl + this.path;
+  // url: string = '/assets/fake-data.json'
   httpParams = new HttpParams().set("apiKey", this.apiKey)
 
   getNews(): Observable<any> {
@@ -25,6 +25,7 @@ export class NewsService {
   }
 
   handleFetchSuccess(data: any): void {
+    console.log(data);
     this.newsSubject.next(data.news);
     this.loadingStatusSubject.next(false)
   }
@@ -43,5 +44,16 @@ export class NewsService {
           this.handleError(error)
         })
 
+  }
+
+  fetchNewsByCategory(category: string) {
+    this.loadingStatusSubject.next(true);
+    const params = this.httpParams.set("category", category);
+
+    this.http.get(this.url, { params })
+      .subscribe((data?: any) => this.handleFetchSuccess(data),
+        (error: HttpErrorResponse) => {
+          this.handleError(error)
+        })
   }
 }

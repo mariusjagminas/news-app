@@ -4,6 +4,6 @@
       {{ category }}
     </li>
   </ul>
-  <input type="text" [(ngModel)]="searchKeyword" />
+  <input (submit)="onClick()" type="text" [(ngModel)]="searchKeyword" />
   <button (click)="onClick()">Search</button>
 </header>

@@ -16,7 +16,7 @@ export class NewsComponent implements OnInit {
     this.newsService.getFetchStatus().subscribe(isLoading => this.isLoading = isLoading)
     this.newsService
       .getNews()
-      .subscribe(news => this.news = news);
+      .subscribe(news => this.news = news.slice());
   }
 }
 
