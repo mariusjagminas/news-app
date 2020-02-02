@@ -11,18 +11,20 @@ export class HeaderComponent implements OnInit {
   searchKeyword: string = "";
 
   ngOnInit() {
-    setTimeout(() => { this.newsService.fetchNews() }, 2000)
-    // this.newsService.fetchNews()
+    // setTimeout(() => { this.newsService.fetchNews() }, 2000)
+    this.newsService.fetchNews()
   }
 
   @Input()
-  categories: Array<string> = ["science", "sports", "lifestyle", "health", "economy", "business"];
+  categories: Array<string> = [
+    "science", "sports", "lifestyle", "health", "economy", "business"
+  ];
 
   changeCategory(category: string): void {
     this.newsService.fetchNewsByCategory(category)
   }
 
-  onClick(): void {
+  onSubmit(): void {
     this.newsService.fetchNews(this.searchKeyword)
     this.searchKeyword = ""
   }

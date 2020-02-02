@@ -1,20 +1,3 @@
 ul {
   list-style: none;
 }
-
-img {
-  width: 200px;
-  height: auto;
-}
-
-a {
-  text-decoration: none;
-}
-
-li {
-  margin: 10px 0;
-  border: 1px solid black;
-  &:hover {
-    opacity: 0.5;
-  }
-}

@@ -7,12 +7,14 @@ import { NewsComponent } from './news/news.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NewsService } from './services/news.service';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    NewsComponent
+    NewsComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { News } from '../news/news.component';
 
 @Injectable()
 export class NewsService {
@@ -12,8 +13,8 @@ export class NewsService {
 
   baseUrl: string = 'https://api.currentsapi.services/v1';
   path: string = "/search";
-  // url: string = this.baseUrl + this.path;
-  url: string = '/assets/fake-data.json'
+  url: string = this.baseUrl + this.path;
+  // url: string = '/assets/fake-data.json'
   httpParams = new HttpParams().set("apiKey", this.apiKey)
 
   getNews(): Observable<any> {
@@ -25,7 +26,8 @@ export class NewsService {
   }
 
   handleFetchSuccess(data: any): void {
-    this.newsSubject.next(data.news);
+    const news = this.addDefaultImage(data.news)
+    this.newsSubject.next(news);
     this.loadingStatusSubject.next(false)
   }
 
@@ -50,5 +52,13 @@ export class NewsService {
         (error: HttpErrorResponse) => {
           this.handleError(error)
         })
+  }
+
+  addDefaultImage(news: News[]) {
+    news.forEach(post => {
+      if (post.image === "None")
+        post.image = "https://picsum.photos/600/400"
+    })
+    return news
   }
 }

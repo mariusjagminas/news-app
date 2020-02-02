@@ -9,16 +9,17 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class NewsComponent implements OnInit {
   constructor(private newsService: NewsService) { }
-  news: News[] = [];
+  news: News[];
   isLoading: boolean;
 
   ngOnInit(): void {
     this.newsService.getFetchStatus().subscribe(isLoading => this.isLoading = isLoading)
     this.newsService
       .getNews()
-      .subscribe(news => this.news = news.slice());
+      .subscribe(news => this.news = news);
   }
 }
+
 
 export interface News {
   id: string;
@@ -26,7 +27,7 @@ export interface News {
   description: string;
   url: string;
   author?: string;
-  image?: string;
+  image: string;
   language: string;
   category: Array<string>;
   published: string;

@@ -1,9 +1,25 @@
 <header>
-  <ul>
-    <li *ngFor="let category of categories" (click)="changeCategory(category)">
-      {{ category }}
-    </li>
-  </ul>
-  <input (submit)="onClick()" type="text" [(ngModel)]="searchKeyword" />
-  <button (click)="onClick()">Search</button>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li *ngFor="let category of categories" class="nav-item">
+            <a class="nav-link" href="#" (click)="changeCategory(category)">{{ category }}</a>
+          </li>
+        </ul>
+
+        <form (ngSubmit)="onSubmit()" class="form-inline my-1 my-lg-0">
+          <input [(ngModel)]="searchKeyword" name="searchKeyword" class="form-control mr-sm-2" type="text"
+            aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+
+      </div>
+    </div>
+  </nav>
 </header>
