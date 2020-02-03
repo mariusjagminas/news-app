@@ -11,8 +11,8 @@ export class HeaderComponent implements OnInit {
   searchKeyword: string = "";
 
   ngOnInit() {
-    // setTimeout(() => { this.newsService.fetchNews() }, 2000)
-    this.newsService.fetchNews()
+    setTimeout(() => { this.newsService.fetchNews() }, 2000)
+    // this.newsService.fetchNews()
   }
 
   @Input()

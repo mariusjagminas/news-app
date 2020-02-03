@@ -1,6 +1,5 @@
-import { Component, Input, OnChanges, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { NewsService } from '../services/news.service';
-import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: "app-news",
@@ -10,10 +9,8 @@ import { Observable } from 'rxjs/internal/Observable';
 export class NewsComponent implements OnInit {
   constructor(private newsService: NewsService) { }
   news: News[];
-  isLoading: boolean;
 
   ngOnInit(): void {
-    this.newsService.getFetchStatus().subscribe(isLoading => this.isLoading = isLoading)
     this.newsService
       .getNews()
       .subscribe(news => this.news = news);

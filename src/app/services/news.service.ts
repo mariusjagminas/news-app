@@ -1,38 +1,50 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { timeout } from 'rxjs/operators'
 import { environment } from '../../environments/environment';
 import { News } from '../news/news.component';
 
 @Injectable()
 export class NewsService {
-  constructor(private http: HttpClient) { }
-  private apiKey = environment.apiKey;
-  private newsSubject = new Subject<any>();
-  private loadingStatusSubject = new BehaviorSubject<boolean>(true);
 
+  constructor(private http: HttpClient) { }
+
+  private newsSubject = new Subject<any>();
+  private loadingSubject = new BehaviorSubject<boolean>(true);
+  private errorSubject = new BehaviorSubject<object>({});
+
+  apiKey = environment.apiKey;
   baseUrl: string = 'https://api.currentsapi.services/v1';
   path: string = "/search";
   url: string = this.baseUrl + this.path;
   // url: string = '/assets/fake-data.json'
   httpParams = new HttpParams().set("apiKey", this.apiKey)
 
-  getNews(): Observable<any> {
+  getNews(): Observable<News[]> {
     return this.newsSubject;
   }
 
   getFetchStatus(): Observable<any> {
-    return this.loadingStatusSubject
+    return this.loadingSubject
+  }
+
+  getErrorStatus(): Observable<any> {
+    return this.errorSubject
   }
 
   handleFetchSuccess(data: any): void {
     const news = this.addDefaultImage(data.news)
+
+    this.errorSubject.next({})
+    this.loadingSubject.next(false)
     this.newsSubject.next(news);
-    this.loadingStatusSubject.next(false)
   }
 
   handleError(error: HttpErrorResponse): void {
-    console.error("Failed to fetch data", error)
+    this.newsSubject.next([]);
+    this.loadingSubject.next(false);
+    this.errorSubject.next(error);
   }
 
   fetchNews(searchKeyword: string = ""): void {
@@ -44,10 +56,14 @@ export class NewsService {
   }
 
   fetch(name: string, value: string) {
-    this.loadingStatusSubject.next(true);
+    this.newsSubject.next([]);
+    this.errorSubject.next({});
+    this.loadingSubject.next(true);
+
     const params = this.httpParams.set(name, value);
 
     this.http.get(this.url, { params })
+      .pipe(timeout(10000))
       .subscribe((data?: any) => this.handleFetchSuccess(data),
         (error: HttpErrorResponse) => {
           this.handleError(error)
@@ -62,3 +78,7 @@ export class NewsService {
     return news
   }
 }
+
+
+
+

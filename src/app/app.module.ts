@@ -8,13 +8,15 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NewsService } from './services/news.service';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { ErrorMessageComponent } from './error-message/error-message.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     NewsComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ErrorMessageComponent
   ],
   imports: [
     BrowserModule,

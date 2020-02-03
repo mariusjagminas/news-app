@@ -9,7 +9,7 @@ import { NewsService } from '../services/news.service';
 export class SpinnerComponent implements OnInit {
 
   constructor(private newsService: NewsService) { }
-  isLoading: boolean = true;
+  isLoading: boolean = false;
 
   ngOnInit() {
     this.newsService
