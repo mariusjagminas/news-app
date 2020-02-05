@@ -10,17 +10,19 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <ul class="navbar-nav mr-auto">
-          <li *ngFor="let category of categories" class="nav-item">
-            <a class=" nav-link" href="#navbarSupportedContent" data-toggle="collapse"
+          <li [ngSwitch]="isMobile" *ngFor="let category of categories" class="nav-item">
+            <a *ngSwitchCase="true" class=" nav-link" href="#navbarSupportedContent" data-toggle="collapse"
               (click)="changeCategory(category)">{{ category }}</a>
+            <a *ngSwitchDefault class=" nav-link" href="#" (click)="changeCategory(category)">{{ category }}</a>
           </li>
         </ul>
 
-        <form (ngSubmit)="onSubmit()" class="form-inline my-1 my-lg-0">
+        <form [ngSwitch]="isMobile" (ngSubmit)="onSubmit()" class="form-inline my-1 my-lg-0">
           <input [(ngModel)]="searchKeyword" name="searchKeyword" class="form-control mr-sm-2" placeholder="Search"
             type="text" aria-label="Search">
-          <button class="btn btn-outline-light my-2 my-sm-0" type="submit" data-toggle="collapse"
+          <button *ngSwitchCase="true" class="btn btn-outline-light my-2 my-sm-0" type="submit" data-toggle="collapse"
             data-target="#navbarSupportedContent">Search</button>
+          <button *ngSwitchDefault class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
         </form>
 
       </div>

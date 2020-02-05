@@ -7,18 +7,27 @@ import { NewsService } from 'src/app/services/news.service';
   styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent implements OnInit {
+
   constructor(private newsService: NewsService) { }
+
   searchKeyword: string = "";
+  isMobile: boolean = false;
+  categories: Array<string> = [
+    "science",
+    "sports",
+    "lifestyle",
+    "health",
+    "economy",
+    "business"
+  ];
 
   ngOnInit() {
-    setTimeout(() => { this.newsService.fetchNews() }, 2000)
-    // this.newsService.fetchNews()
+    // setTimeout(() => { this.newsService.fetchNews() }, 2000)
+    this.newsService.fetchNews()
+    window.onresize = () => {
+      this.isMobile = window.innerWidth < 990;
+    }
   }
-
-  @Input()
-  categories: Array<string> = [
-    "science", "sports", "lifestyle", "health", "economy", "business"
-  ];
 
   changeCategory(category: string): void {
     this.newsService.fetchNewsByCategory(category)
