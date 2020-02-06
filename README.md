@@ -1,6 +1,6 @@
 # NewsApp
 
-Latest news from over 15,000 different sources.
+The latest news from over 15,000 different sources.
 Users can search for the latest news by entering keywords or selecting from categories
 
 This project was built with :
@@ -11,7 +11,7 @@ This project was built with :
 
 ### Prerequisites
 
-To use this project on a local computer, you must obtain a [API key](https://currentsapi.services/en/register) from Currents API.
+To use this project on the local computer, you must obtain the [API key](https://currentsapi.services/en/register) from Currents API.
 
 ### Installation
 
