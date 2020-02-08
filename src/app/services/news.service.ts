@@ -17,8 +17,8 @@ export class NewsService {
   apiKey = environment.apiKey;
   baseUrl: string = 'https://api.currentsapi.services/v1';
   path: string = "/search";
-  // url: string = this.baseUrl + this.path;
-  url: string = '/assets/fake-data.json'
+  url: string = this.baseUrl + this.path;
+  // url: string = '/assets/fake-data.json'
   httpParams = new HttpParams().set("apiKey", this.apiKey)
 
   getNews(): Observable<News[]> {
